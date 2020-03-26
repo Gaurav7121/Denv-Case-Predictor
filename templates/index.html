@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Predict Rate Of Dengue</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+  
+<style>
+  ::placeholder {
+    color:rgb(13, 13, 14);
+    opacity:0.8; /* Firefox */
+    font-weight: bold;
+  }
+  body{
+    overflow-y : auto;
+  }
+  </style>
+  
+</head>
+<body style="background-image: url('{{ url_for('static', filename='house.jpg') }}'); 
+background-repeat:no-repeat;
+background-size:cover;
+height:100vh;
+display:flex;
+">
+
+ <div class="header-login">
+	<h1>Rate of Dengue Cases</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form name="myform" action="{{ url_for('predict')}}"method="post" onsubmit="return(validateform());">
+      <p>
+        Normalized difference vegetation index (NDVI) :<br>
+      </p>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="NDVI : Pixel northeast of city centroid" placeholder="NDVI : Pixel northeast of city centroid" required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="NDVI : Pixel northwest of city centroid" placeholder="NDVI : Pixel northwest of city centroid" required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="NDVI : Pixel southeast of city centroid" placeholder="NDVI : Pixel southeast of city centroid" required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="NDVI : Pixel southwest of city centroid" placeholder="NDVI : Pixel southwest of city centroid" required="required" /><br>
+      
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="Percipitation Amount" placeholder="Current Percipitation Amount" required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="Current Air Temp." placeholder="Current Air Temp." required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="Average Air Temp." placeholder="Average Air Temp." required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="mean Dew Point temp." placeholder="mean Dew Point temp." required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="Avg. Percipitation Amount (Kg per m*2)" placeholder="Avg. Percipitation Amount (Kg per m*2)" required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="Humidity Percantage" placeholder="Humidity Percantage" required="required" /><br>
+      <input type="text" style="background-color:rgba(219, 228, 236,0.5)" name="Stat. Avg. Temp" placeholder="Stat. Avg. Temp" required="required" /><br>
+      <button type="submit" class="btn btn-primary btn-block btn-large" style="margin-bottom: -1px;">Predict</button>
+
+        
+        <!--<a href="visual" class="btn btn-primary btn-block btn-large" style="text-decoration: none;">Visualize</a>-->
+    </form>
+    <div class = 'header-login' style="color:azure;">
+     <b> <p style="width: 100%; font-size: medium; margin-bottom: 15px;">{{ prediction_text1 }}<br> {{ prediction_text }}<br> {{ prediction_text2 }}</p></b>
+     </div>
+ </div>
+
+
+
+</body>
+</html>
